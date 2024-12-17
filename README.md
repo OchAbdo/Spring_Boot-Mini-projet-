@@ -1,5 +1,6 @@
 # Spring_Boot-Mini-projet
-une application web permettant à une organisation de gérer des événements (conférences, séminaires, ateliers) et les inscriptions des participants. 
+une application web permettant à une organisation de gérer des événements (conférences, séminaires, ateliers) et les inscriptions des participants.
+
 Liste des acteurs :
 Administrateur : Responsable de la gestion des événements et des inscriptions des participants après authentification. 
 Utilisateur (Participant) : Personne souhaitant consulter les événements et s’inscrire en ligne. 
