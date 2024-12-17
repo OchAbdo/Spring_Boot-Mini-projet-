@@ -2,10 +2,12 @@
 une application web permettant à une organisation de gérer des événements (conférences, séminaires, ateliers) et les inscriptions des participants.
 
 Liste des acteurs :
+
 Administrateur : Responsable de la gestion des événements et des inscriptions des participants après authentification. 
 Utilisateur (Participant) : Personne souhaitant consulter les événements et s’inscrire en ligne. 
 
 Gestion des événements : 
+
 Ajout d'un événement : L’administrateur peut créer de nouveaux événements.
 Modification d'un événement : L’administrateur peut modifier les détails d’un événement existant. 
 Suppression d'un événement : L’administrateur peut supprimer un événement. 
