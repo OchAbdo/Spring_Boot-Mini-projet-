@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:replace="/layout/default :: link">
+    <title>liste Participant</title>
+</head>
+<body th:replace="layout/default::body(title='Liste de Participant')">
+    <div th:fragment="content">
+        
+        <h2 th:text="|Evenement ${id}|"></h2><br>
+        <a class="btn btn-dark"  th:href="@{/espaceadmin}">Retour</a><br><br>
+
+        <table  class="table table-hover" th:unless="${#lists.isEmpty(liste)}">
+            <tr class="table-dark">
+                <th>nom</th>
+                <th>Email</th>
+                <th>telephone</th>
+                <th>paiement</th>
+                <th>Annulation</th>
+            </tr>
+            <tr th:each="user:${liste}">
+                <td th:text="${user.nom}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.telephone}"></td>
+                <td th:text="${user.paiment}"></td>
+                <td>
+                    <form th:action="@{|/espaceadmin/${id}/participant/${user.id}/delete|}"  method="POST"  >
+                        <input class="btn btn-danger" type="submit" value="Annuler"> 
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+        <div class="alert alert-dismissible alert-warning" th:if="${#lists.isEmpty(liste)}">
+            <h4 class="alert-heading">Warning!</h4>
+            <p class="mb-0">Il ny'a pas des participants participer a cette evenement</p>
+          </div>
+
+          <div  th:unless="${#lists.isEmpty(liste)}">
+            <ul class="pagination pagination-sm">
+              <li class="page-item" th:classappend="${currentPage==0?'disabled':''}">
+                <a class="page-link" th:href="@{|/espaceadmin/${id}/participant?page=${currentPage-1}|}">&laquo;</a>
+              </li>
+              <li th:each="index: ${#numbers.sequence(0,totalPages-1 )}" class="page-item"
+                  th:classappend="${currentPage==index ?'active':''}">
+                <a class="page-link"th:href="@{|/espaceadmin/${id}/participant?page=${index}|}" th:text="${index+1}"></a>
+              </li>
+             
+              <li class="page-item"  th:classappend="${currentPage== totalPages-1 ?'disabled':''}">
+                <a class="page-link" th:href="@{|/espaceadmin/${id}/participant?page=${currentPage+1}|}">&raquo;</a>
+              </li>
+            </ul>
+          </div> 
+
+    </div>
+    
+</body>
+</html>

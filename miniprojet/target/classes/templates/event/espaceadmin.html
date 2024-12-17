@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Admin</title>
+    <link th:replace="~{/layout/default :: link}">
+</head>
+<body th:replace="~{/layout/default::body(title='Espace Admin')}">
+
+    <div th:fragment="content">
+    <form th:action="@{/espaceadmin/add}" >
+        <input class="btn btn-dark" type="submit" value="Ajouter Evenement">
+    </form>
+        <br>
+        <table class="table table-hover" th:unless="${#lists.isEmpty(events)}">
+            <tr class="table-dark">
+              <th>Titre</th>
+              <th>Description</th>
+              <th>Date</th>
+              <th>Lieu</th>
+              <th>Nombre de place</th>
+              <th>Prix</th>
+              <th>Categorie</th>
+              <th>Image</th>
+              <th>CRUD</th>
+            </tr>  
+            <tr th:each="evenement:${events}">
+                <td th:text="${evenement.titre}"></td>
+                <td th:text="${evenement.description}"></td>
+                <td th:text="${#dates.format(evenement.date, 'dd/MM/yyyy')}"></td>
+                <td th:text="${evenement.lieu}"></td>
+                <td th:text="${evenement.nbplace}"></td>
+                <td th:text="${evenement.prix}"></td>
+                <td th:text="${evenement.categorie}"></td>
+                <td><img th:src="${evenement.image}? @{|/image/${evenement.image}|}:@{/image/no-image.png}"
+                    style="width:120px; height:150px;"></img>
+                </td>
+                <td>
+                    <form th:action="@{|/espaceadmin/${evenement.id}/edit|}">
+                        <input class="btn btn-warning" type="submit" value="Modifier">
+                    </form>
+                    <br>
+                    <form th:action="@{|/espaceadmin/${evenement.id}/delete|}" method="POST">
+                        <input class="btn btn-danger" type="submit" value="Supprimer">
+                    </form>
+                    <br>
+                    <form th:action="@{|/espaceadmin/${evenement.id}/participant|}">
+                        <input class="btn btn-info" type="submit" value="Liste Participant">
+                    </form>
+                
+                </td>
+
+            </tr>
+        </table>
+
+        <div class="alert alert-dismissible alert-warning" th:if="${#lists.isEmpty(events)}">
+            <h4 class="alert-heading">Warning!</h4>
+            <p class="mb-0">Il ny'a pas des Evenements maintenant</p>
+          </div>
+
+     <div  th:unless="${#lists.isEmpty(events)}">
+      <ul class="pagination pagination-sm">
+        <li class="page-item" th:classappend="${currentPage==0?'disabled':''}">
+          <a class="page-link" th:href="@{|/espaceadmin?page=${currentPage-1}|}">&laquo;</a>
+        </li>
+        <li th:each="index: ${#numbers.sequence(0,totalPages-1 )}" class="page-item"
+            th:classappend="${currentPage==index ?'active':''}">
+          <a class="page-link"th:href="@{|/espaceadmin?page=${index}|}" th:text="${index+1}"></a>
+        </li>
+       
+        <li class="page-item"  th:classappend="${currentPage== totalPages-1 ?'disabled':''}">
+          <a class="page-link" th:href="@{|/espaceadmin?page=${currentPage+1}|}">&raquo;</a>
+        </li>
+      </ul>
+    </div> 
+</div>
+</body>
+</html>

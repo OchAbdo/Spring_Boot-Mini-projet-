@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajoute Participant</title>
+    <link th:replace="~{/layout/default::link}">
+</head>
+
+<body th:replace="~{layout/default::body(title='Ajoute Participant')}">
+
+    <div th:fragment="content">
+
+        <a class="btn btn-dark" th:href="@{/user}">Liste Evenements</a> <br> <br>
+        <form th:action="@{|/user/${id}/ajout|}" th:object="${user}" method="POST" >
+
+            <div class="has-danger">
+                <label for="nom" class="form-label mt-4">Nom</label>
+                <input type="text" id="nom" class="form-control" name="nom"
+                    th:classappend="${#fields.hasErrors('nom')}?is-invalid" th:field="*{nom}">
+                <span class="invalid-feedback" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}">nom Error</span>
+            </div>
+
+            <div class="has-danger">
+                <label for="email" class="form-label mt-4">Email</label>
+                <input type="text" id="email" class="form-control" name="email"
+                    th:classappend="${#fields.hasErrors('email')}?is-invalid" th:field="*{email}">
+                <span class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email
+                    Error</span>
+            </div>
+
+            <div class="has-danger">
+                <label for="telephone" class="form-label mt-4">Telephone</label>
+                <input type="number" id="telephone" class="form-control" name="telephone"
+                    th:classappend="${#fields.hasErrors('telephone')}?is-invalid" th:field="*{telephone}">
+                <span class="invalid-feedback" th:if="${#fields.hasErrors('telephone')}"
+                    th:errors="*{telephone}">telephone Error</span>
+            </div><br>
+            
+            <div class="col-4">
+                <label  class="form-label">Methode de Paiement</label><br>
+                  <label class="form-label"><input class="form-check-input" type="radio" id="paiment"  name="mpaiement" value="espece" 
+                    th:classappend="${#fields.hasErrors('paiment')}?is-invalid" th:field="*{paiment}" >Espece</label>
+                  <label class="form-label"><input class="form-check-input" type="radio" id="paiment"  name="mpaiement" value="carte" 
+                    th:classappend="${#fields.hasErrors('paiment')}?is-invalid" th:field="*{paiment}">Carte</label>
+                  <span class="invalid-feedback" th:if="${#fields.hasErrors('paiment')}" th:errors="*{paiment}">paiment
+                        Error</span>
+              </div>
+
+
+            <!--<div class="has-danger">
+                <label for="paiment" class="form-label mt-4">Mode Paiment</label>
+                <input type="text" id="paiment" class="form-control" name="paiment"
+                    th:classappend="${#fields.hasErrors('paiment')}?is-invalid" th:field="*{paiment}">
+                <span class="invalid-feedback" th:if="${#fields.hasErrors('paiment')}" th:errors="*{paiment}">paiment
+                    Error</span>
+            </div>-->
+
+            <br>
+            <div>
+                <input class="btn btn-primary" type="submit" value="Ajouter" >
+            </div>
+            <br><br>
+        </form>
+    </div>
+</body>
+
+</html>

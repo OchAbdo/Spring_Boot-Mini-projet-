@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier Evenements</title>
+    <link th:replace="~{/layout/default::link}">
+</head>
+<body th:replace="~{/layout/default::body(title='Modifier Evenement')}">
+    
+    <div th:fragment="content">
+        <a class="btn btn-dark"  th:href="@{/espaceadmin}"> retour</a> <br><br>
+
+    <form  th:action="@{|/espaceadmin/${id}/edit|}" th:object="${eventForm}" method="POST" enctype="multipart/form-data">
+        <div class="has-danger">
+            <label for="titre" class="form-label mt-4">Titre</label>
+            <input type="text" class="form-control" name="titre"
+            th:classappend="${#fields.hasErrors('titre')}?is-invalid" th:field="*{titre}" id="titre" >
+            <span class="invalid-feedback" th:if="${#fields.hasErrors('titre')}" th:errors="*{titre}">Titre Error</span>
+        </div>
+
+        <div class="has-danger">
+            <label for="description" class="form-label mt-4">Description</label>
+            <input type="text" id="description" class="form-control" name="description"
+            th:classappend="${#fields.hasErrors('description')}?is-invalid" th:field="*{description}">
+            <span class="invalid-feedback" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</span>
+        </div>
+
+        <div class="has-danger">
+            <label for="lieu" class="form-label mt-4">Lieu</label>
+            <input type="text" id="lieu" class="form-control" name="lieu"
+            th:classappend="${#fields.hasErrors('lieu')}?is-invalid" th:field="*{lieu}">
+            <span class="invalid-feedback" th:if="${#fields.hasErrors('lieu')}" th:errors="*{lieu}">Lieu Error</span>
+        </div>
+
+        <div class="has-danger">
+            <label for="date" class="form-label mt-4">Date</label>
+            <input type="date" id="date" class="form-control" name="date"
+            th:classappend="${#fields.hasErrors('date')}?is-invalid" th:field="*{date}">
+            <span class="invalid-feedback" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</span>
+        </div>
+
+        <div class="has-danger">
+            <label for="nbplace" class="form-label mt-4">Nombre de Place</label>
+            <input type="number" id="nbplace"  class="form-control" name="nbplace"
+            th:classappend="${#fields.hasErrors('nbplace')}?is-invalid" th:field="*{nbplace}">
+            <span  class="invalid-feedback" th:if="${#fields.hasErrors('nbplace')}" th:errors="*{nbplace}">Nombre de Place Error</span>
+        </div>
+
+        <div  class="has-danger">
+            <label for="prix" class="form-label mt-4">Prix</label>
+            <input type="number" id="prix" class="form-control" name="prix"
+            th:classappend="${#fields.hasErrors('prix')}?is-invalid"  th:field="*{prix}">
+            <span  class="invalid-feedback" th:if="${#fields.hasErrors('prix')}" th:errors="*{prix}">Prix Error</span>
+        </div>
+
+        <div class="has-danger">
+            <label for="categorie" class="form-label mt-4">Categorie</label>
+            <input type="text" id="categorie" class="form-control" name="categorie"
+            th:classappend="${#fields.hasErrors('categorie')}?is-invalid"  th:field="*{categorie}">
+            <span class="invalid-feedback" th:if="${#fields.hasErrors('categorie')}" th:errors="*{categorie}">Categorie Error</span>
+        </div>
+        <div>
+            <label class="form-label mt-4" for="file">Photo</label>
+            <input class="form-control mt-2" type="file" name="file">
+        </div>
+        <br>
+        <div>
+            <input class="btn btn-primary" type="submit" value="Modifier" >
+        </div>
+    </form>
+
+</div>
+    
+</body>
+</html>

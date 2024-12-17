@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentification Admin</title>
+    <link th:replace="~{/layout/default::link}">
+    <script type="text/javascript"></script>
+</head>
+<body th:replace="~{/layout/default :: body(title='Authentification Admin')}">
+    <div th:fragment="content">
+
+        <a class="btn btn-dark"  th:href="@{/user}"> retour </a> <br><br>
+        <form th:action="@{/auth_admin}"  th:object="${admin}" method="POST">
+
+            <div class="has-danger">
+                <label for="adminname" class="form-label mt-4">Administrateur</label>
+                <input type="text" id="adminname" class="form-control" name="adminname"
+                th:classappend="${#fields.hasErrors('adminname')}?is-invalid"  th:field="*{adminname}">
+                <span  class="invalid-feedback" th:if="${#fields.hasErrors('adminname')}" th:errors="*{adminname}">Admin Error</span>
+            </div>
+            <div class="has-danger">
+                <label for="password" class="form-label mt-4">mot de passe</label>
+                <input type="password" id="password" class="form-control" name="password"
+                th:classappend="${#fields.hasErrors('password')}?is-invalid"  th:field="*{password}">
+                <span class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</span>
+            </div>
+
+            <br>
+            <div>
+                <input class="btn btn-primary" type="submit" value="entre">
+            </div>
+        </form>
+        <br>
+        
+</div>
+</body>
+</html>

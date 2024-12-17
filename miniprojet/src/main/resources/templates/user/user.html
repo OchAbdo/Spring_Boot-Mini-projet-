@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Evenement</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:replace="~{layout/default::link}">
+    <script type="text/javascript">
+      function submitFormDate() {
+        document.getElementById("filterFormDate").submit();
+      }
+
+      function submitFormCategorie() {
+        document.getElementById("filterFormCategorie").submit();
+      }
+    </script>
+
+</head>
+    
+
+<body th:replace="~{layout/default::body(title='Evenement')}">
+
+    <div th:fragment="content">
+        <br>
+
+    
+            <div >
+              <p><strong>Sort by Date:</strong></p>
+              <form th:action="@{/user/filter/date}" method="get" id="filterFormDate">
+                <label><input type="radio" name="sortByDate" value="asc" th:checked="${sortByDate=='asc'}"
+                    onchange="submitFormDate()"> Ascending</label>
+                <label><input type="radio" name="sortByDate" value="desc" th:checked="${sortByDate=='desc'}"
+                    onchange="submitFormDate()"> Descending</label>
+              </form>
+        
+            </div>
+            <br>
+            <div >
+              <p><strong>Sort by Categorie:</strong></p>
+              <form th:action="@{/user/filter/categorie}" method="get" id="filterFormCategorie">
+                <label><input type="radio" name="sortByCategorie" value="asc" th:checked="${sortByCategorie=='asc'}"
+                    onchange="submitFormCategorie()"> Ascending</label>
+                <label><input type="radio" name="sortByCategorie" value="desc" th:checked="${sortByCategorie=='desc'}"
+                    onchange="submitFormCategorie()"> Descending</label>
+              </form>
+           </div>
+           <br>
+
+        <table  class="table table-hover" th:unless="${#lists.isEmpty(events)}">
+            <tr class="table-dark">
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>lieu</th>
+                <th>Nombre de place</th>
+                <th>Prix</th>
+                <th>Categorie</th>
+                <th>Image</th>
+                <th>participer</th>
+            </tr>
+            <tr th:each="evenement:${events}">
+                <td th:text="${evenement.titre}"></td>
+                <td th:text="${evenement.description}"></td>
+                <td th:text="${#dates.format(evenement.date, 'dd/MM/yyyy')}"></td>
+                <td th:text="${evenement.lieu}"></td>
+                <td th:text="${evenement.nbplace}"></td>
+                <td th:text="${evenement.prix}"></td>
+                <td th:text="${evenement.categorie}"></td>
+                <td><img th:src="${evenement.image}? @{|/image/${evenement.image}|}:@{/image/no-image.png}"
+                    style="width:120px; height:150px;"></img>
+                </td>
+                <td>
+                    <form th:action="@{|/user/${evenement.id}/ajout|}">
+                        <input type="submit" value="participer" class="btn btn-info">
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+        <div class="alert alert-dismissible alert-warning" th:if="${#lists.isEmpty(events)}">
+            <h4 class="alert-heading">Warning!</h4>
+            <p class="mb-0">Il ny'a pas des Evenements maintenant</p>
+        </div>
+
+        <div  th:unless="${#lists.isEmpty(events)}">
+            <ul class="pagination pagination-sm">
+              <li class="page-item" th:classappend="${currentPage==0?'disabled':''}">
+                <a class="page-link" th:href="@{|/user?page=${currentPage-1}|}">&laquo;</a>
+              </li>
+              <li th:each="index: ${#numbers.sequence(0,totalPages-1 )}" class="page-item"
+                  th:classappend="${currentPage==index ?'active':''}">
+                <a class="page-link"th:href="@{|/user?page=${index}|}" th:text="${index+1}"></a>
+              </li>
+             
+              <li class="page-item"  th:classappend="${currentPage== totalPages-1 ?'disabled':''}">
+                <a class="page-link" th:href="@{|/user?page=${currentPage+1}|}">&raquo;</a>
+              </li>
+            </ul>
+          </div> 
+        
+    </div>
+
+
+  
+</body>
+
+</html>

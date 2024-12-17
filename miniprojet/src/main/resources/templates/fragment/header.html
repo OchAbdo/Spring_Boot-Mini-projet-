@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Header</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript"></script>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" >Reservation Evennements</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user}">Espace User</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" th:href="@{/espaceadmin}">Espace Administrateur</a>
+                  </li>
+                </ul>
+                <ul class="navbar-nav ms-auto me-4" sec:authorize="isAuthenticated()">
+                 <!-- <ul class="navbar-nav ms-auto me-4"> -->
+                  <li class="nav-item">
+                    <form th:action="@{/logout}" method="post" class="row">
+                      <div class="col">
+                        <span class="text-secondary" sec:authentication="name">Name</span>
+                        <span class="text-secondary" sec:authentication="principal.authorities">ROLE</span>
+                      </div>
+                      <input class="btn btn-danger col" type="submit" value="Logout" />
+                    </form>
+                  </li>
+                </ul>
+                 <!--login form for unlogged users-->
+                 <ul class="navbar-nav ms-auto me-4" sec:authorize="!isAuthenticated()" >
+                    <li class="nav-item">
+                      <form th:action="@{/login}" method="get" class="row">   
+                        <input class="btn btn-success col" type="submit" value="Login" />
+                      </form>
+                    </li>
+                  </ul>
+              </div>
+            </div>
+          </nav>
+        <h1 class="container text-center display-1"  th:text="${title}">Default title</h1>
+    </header>
+    
+</body>
+</html>
